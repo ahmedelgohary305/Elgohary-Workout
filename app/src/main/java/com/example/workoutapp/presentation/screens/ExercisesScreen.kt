@@ -93,9 +93,21 @@ fun ExercisesScreen(
     var showCreateExerciseDialog by rememberSaveable { mutableStateOf(false) }
     var showBodyPartDialog by rememberSaveable { mutableStateOf(false) }
     var showFilterDialog by rememberSaveable { mutableStateOf(false) }
-    val bodyParts = remember {
-        exerciseBodyParts.map { it.bodyPart }.toSet().toList()
+
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var selectedFilterBodyParts by rememberSaveable { mutableStateOf(listOf<String>()) }
+    var isSearching by rememberSaveable { mutableStateOf(false) }
+
+    val filteredExercises = remember(searchQuery, selectedFilterBodyParts, allExercises) {
+        allExercises.filter {
+            (searchQuery.isEmpty() || it.name.contains(searchQuery, ignoreCase = true)) &&
+                    (selectedFilterBodyParts.isEmpty() || it.bodyPart in selectedFilterBodyParts)
+        }
     }
+
+    val groupedExercises = filteredExercises.map { it.name }.groupBy { it.first().uppercaseChar() }
+    val bodyParts = allExercises.map { it.bodyPart }.toSet().toList()
+
     var exerciseName by rememberSaveable { mutableStateOf("") }
     var selectedBodyPart by rememberSaveable { mutableStateOf("") }
     var selectedFilterBodyParts by rememberSaveable {
