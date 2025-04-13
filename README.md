@@ -35,6 +35,7 @@ Built using the latest Jetpack libraries and Android development best practices.
   <img src="https://raw.githubusercontent.com/ahmedelgohary305/Elgohary-Workout/master/Screenshots/Workout Screenshot 1.png" width="300"/>
   <img src="https://raw.githubusercontent.com/ahmedelgohary305/Elgohary-Workout/master/Screenshots/Workout Screenshot 2.png" width="300"/>
   <img src="https://raw.githubusercontent.com/ahmedelgohary305/Elgohary-Workout/master/Screenshots/Workout Screenshot 3.png" width="300"/>
+  <img src="https://raw.githubusercontent.com/ahmedelgohary305/Elgohary-Workout/master/Screenshots/Workout Screenshot 4.png" width="300"/>
 </p>
 
 ## 🚀 Getting Started
