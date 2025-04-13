@@ -32,8 +32,6 @@ Built using the latest Jetpack libraries and Android development best practices.
 
 ## 📸 Screenshots
 
-_Add screenshots here if you'd like to showcase UI — optional._
-
 ---
 
 ## 🚀 Getting Started
