@@ -31,9 +31,7 @@ Built using the latest Jetpack libraries and Android development best practices.
 ---
 
 ## 📸 Screenshots
-![Workout Screenshot 1](https://raw.githubusercontent.com/ahmedelgohary305/Elgohary-Workout/master/Screenshots/Workout Screenshot 1.png)
-![Workout Screenshot 2](Screenshots/Workout Screenshot 2.png)
-![Workout Screenshot 3](Screenshots/Workout Screenshot 3.png)
+
 ---
 
 ## 🚀 Getting Started
