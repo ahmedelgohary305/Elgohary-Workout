@@ -80,15 +80,9 @@ fun ExercisesScreen(
     navController: NavController,
     context: Context
 ) {
-    val initialExerciseBodyParts =
-        workoutViewModel.createdExercisesList.collectAsStateWithLifecycle().value
-    var exerciseBodyParts by rememberSaveable {
-        mutableStateOf(initialExerciseBodyParts)
-    }
-    val groupedExercises = exerciseBodyParts.map {
-        it.name
-    }.groupBy { it.first().uppercaseChar() }
+    val allExercises = workoutViewModel.createdExercisesList.collectAsStateWithLifecycle().value
     val selectedExercises = exerciseViewModel.selectedExercises.collectAsStateWithLifecycle()
+
     var showOptionsMenu by rememberSaveable { mutableStateOf(false) }
     var showCreateExerciseDialog by rememberSaveable { mutableStateOf(false) }
     var showBodyPartDialog by rememberSaveable { mutableStateOf(false) }
@@ -110,15 +104,7 @@ fun ExercisesScreen(
 
     var exerciseName by rememberSaveable { mutableStateOf("") }
     var selectedBodyPart by rememberSaveable { mutableStateOf("") }
-    var selectedFilterBodyParts by rememberSaveable {
-        mutableStateOf(listOf<String>())
-    }
-    var isSearching by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var searchQuery by rememberSaveable {
-        mutableStateOf("")
-    }
+
     BackHandler(enabled = selectedExercises.value.isNotEmpty()) {
         exerciseViewModel.clearSelectedExercisesInExerciseScreen()
     }
@@ -167,7 +153,6 @@ fun ExercisesScreen(
                         imeAction = ImeAction.Search
                     ),
                     keyboardActions = KeyboardActions {
-                        exerciseBodyParts = workoutViewModel.searchCreatedExercises(searchQuery)
                         isSearching = false
                     },
                     shape = RoundedCornerShape(16.dp),
@@ -259,8 +244,6 @@ fun ExercisesScreen(
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            exerciseBodyParts =
-                                workoutViewModel.filterCreatedExercises(selectedFilterBodyParts)
                             showFilterDialog = false
                         }
                     ) {
@@ -324,7 +307,7 @@ fun ExercisesScreen(
                 onDismissRequest = { showCreateExerciseDialog = false },
                 confirmButton = {
                     TextButton(onClick = {
-                        if (exerciseName !in exerciseBodyParts.map { it.name }){
+                        if (exerciseName !in allExercises.map { it.name }){
                             if (exerciseName.isNotEmpty() || selectedBodyPart.isNotEmpty()) {
                                 workoutViewModel.insertCreatedExercise(
                                     CreatedExerciseEntity(
@@ -531,7 +514,7 @@ fun ExercisesScreen(
                                 )
                             }
                             Text(
-                                text = exerciseBodyParts.find { it.name == exercise }?.bodyPart
+                                text = allExercises.find { it.name == exercise }?.bodyPart
                                     ?: "",
                                 fontSize = 15.sp,
                                 color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
